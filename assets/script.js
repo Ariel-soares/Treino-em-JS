@@ -3,21 +3,21 @@ const url = 'http://files.cod3r.com.br/curso-js/funcionarios.json'
 const axios = require('axios')
 
 axios.get(url).then(response => {
+
     const funcionarios = response.data
 
-    const mulher = m => m.genero == 'M'
+    const mulher = m => m.genero === 'F'
 
-    const chines = c => c.pais == 'China'
+    const chines = c => c.pais === 'China'
 
-    const procurada = funcionarios.filter(mulher).filter(chines)
-
-    //console.log(procurada)
-
-    for(let i = 0; i <= procurada.lenght; i++){
-
-        console.log(procurada[i])
-        
-
+    const menorSalario = (funcionario, funcAtual) => {
+        return funcionario.salario < funcAtual.salario ? funcionario : funcAtual
     }
+
+    const MulherProcurada = funcionarios.filter(mulher).filter(chines).reduce(menorSalario)
+
+
+    console.log(MulherProcurada)
+
 
 })
